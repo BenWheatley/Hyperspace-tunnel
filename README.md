@@ -1,5 +1,5 @@
 # Hyperspace-tunnel
-A hyperspace tunnel effect in multiple languages.
+A hyperspace tunnel effect in multiple languages. This is a fairly straightforward Perlin noise fractal, mapped onto an infinite cylinder.
 
 Demonstration, JavaScript, animated (takes a few seconds to stabilise, low resolution): [https://benwheatley.github.io/Hyperspace-tunnel/hyperspace.html?animated]
 
