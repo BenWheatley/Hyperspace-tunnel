@@ -1,0 +1,129 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+</style>
+</head>
+<body style="margin:0px;">
+
+<div id="SpaceView">
+	<p id="PleaseWait">Rendering, please wait…</p>
+	<canvas id="canvas-SpaceView"></canvas>
+</div>
+
+</body>
+
+<script>
+	"use strict";
+	
+	// Configure the view
+	var CANVAS_WIDTH = window.innerWidth;
+	var CANVAS_HEIGHT = window.innerHeight;
+	
+	CANVAS_WIDTH = 160;
+	CANVAS_HEIGHT = 120;
+	
+	if (CANVAS_HEIGHT % 2 == 0) {
+		CANVAS_HEIGHT = CANVAS_HEIGHT - 1; // Because there is an error at the 9 O'clock position if we don't do this. I'd fix this rather than leaving a note if I didn't have many dozens of higher priority tasks in my life right now.
+	}
+	
+	var element = document.getElementById("canvas-SpaceView");
+	element.width = CANVAS_WIDTH;
+	element.height = CANVAS_HEIGHT;
+	
+	var hWidth = CANVAS_WIDTH / 2;
+	var hHeight = CANVAS_HEIGHT / 2;
+	
+	// Utility functions
+	function linearInterpolate(a, b, x) {
+		return a*(1-x) + b*x;
+	}
+	
+	function cosineInterpolate(a, b, x) {
+		var ft = x * Math.PI;
+		var f = (1 - Math.cos(ft)) * 0.5;
+		
+		return a*(1-f) + b*f;
+	}
+	
+	function seededRandom(x) {
+		// Magic numbers from tutorial on pseudo-random number generators
+		var temp = x<<13;
+		temp = (x * (x * x * 15731 + 789221) + 1376312589);
+		temp = temp & 0x7fffffff; // bitwise and
+		return 128 + (256*( 1.0 - temp/1073741824.0 ));
+	}
+	
+	var MAX_OCTAVE = 8; // Higher values = 8 more detail, lower values = faster; no point going over 8 because of dynamic range of colour space
+	
+	function renderHyperspaceView() {
+		var time = Date.now()/1000 % 10000;
+		var example = document.getElementById('canvas-SpaceView');
+		var context = example.getContext('2d');
+		
+		var centerToCorner = Math.sqrt((hWidth*hWidth) + (hHeight*hHeight));
+		var tangentScale = Math.PI / (2*centerToCorner);
+		var thetaToPerlinScale = 128 / Math.PI;
+		
+		// Re-render all points
+		context.beginPath();
+		for (var y=0; y<CANVAS_HEIGHT; y++) {
+			var dy = y - hHeight;
+			for (var x=0; x<CANVAS_WIDTH; x++) {
+				var dx = x - hWidth;
+				var r = Math.sqrt((dx*dx) + (dy*dy));
+				var perlinTheta = 128 + thetaToPerlinScale*Math.atan2(dy, dx); // Range 0-255
+				r = centerToCorner - r;
+				r = Math.tan(tangentScale*r);
+				
+				var sum = 0;
+				for (var octave = 1; octave < MAX_OCTAVE; octave++) {
+					var sf = Math.pow(2, octave);
+					var sf8 = sf*4; // I can't remember where this variable name came from
+					
+					// The constants 64 and 4 are essentially arbitary:
+					// they define the scale of the largest component of the Perlin noise
+					var new_theta_double = sf*perlinTheta/64;
+					var new_r_double = sf*r/4 + time; // Add current time to this to get an animated effect (but optimise code first!)
+					
+					var new_theta_int = Math.floor(new_theta_double);
+					var new_r_int = Math.floor(new_r_double);
+					var fraction_r = new_r_double - new_r_int
+					var fraction_theta = new_theta_double - new_theta_int;
+					
+					var t1 = seededRandom( new_theta_int	+ sf8 *  new_r_int   );
+					var t2 = seededRandom( new_theta_int	+ sf8 * (new_r_int+1));
+					if (new_theta_int+1 >= sf8) {
+						// So that interpolation with angle 0-360° doesn't do weird things with angles > 360°
+						new_theta_int = new_theta_int - sf8;
+					}
+					var t3 = seededRandom((new_theta_int+1)	+ sf8 *  new_r_int   );
+					var t4 = seededRandom((new_theta_int+1)	+ sf8 * (new_r_int+1));
+					
+					var i1 = cosineInterpolate(t1, t2, fraction_r);
+					var i2 = cosineInterpolate(t3, t4, fraction_r);
+					
+					sum = sum + cosineInterpolate(i1, i2, fraction_theta)*256/sf;
+				}
+				
+				sum = Math.round(sum/256.0);
+				// This could be made more efficient with ImageData, but this isn't the slowest part of the code
+				context.fillStyle = "rgba("+sum+", "+sum+", "+sum+", 255)";
+				context.fillRect(x, y, 1, 1);
+			}
+		}
+		context.stroke();
+	
+		window.setTimeout(animate, 1000/60);
+		document.getElementById("PleaseWait").innerHTML = "";
+	}
+	
+	window.setTimeout(renderHyperspaceView, 1000/60);
+	
+	function animate() {
+		window.setInterval(renderHyperspaceView, 1000);
+	}
+
+</script>
+
+</html>
