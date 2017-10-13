@@ -1,0 +1,95 @@
+// I no longer have the REALbasic IDE (it's now called Xojo), but this worked at one point
+
+Function Linear_Interpolate(a As Integer, b As Integer, x As Double) As Integer
+ return  a*(1-x) + b*x
+End Function
+
+Function Cosine_Interpolate(a As Integer, b As Integer, x As Double) As Integer
+ Dim f, ft As Double
+ ft = x * 3.1415927
+ f = (1 - cos(ft)) * 0.5
+
+ return  a*(1-f) + b*f
+End Function
+
+Function seeded_random(x As Integer) As Integer
+ Dim tmp As UInt32
+ tmp = Bitwise.ShiftLeft(x, 13) ^ x //x = (x<<13) ^ x
+ tmp = (x * (x * x * 15731 + 789221) + 1376312589)
+ Dim hexConst As UInt32
+ hexConst = &h7fffffff
+ tmp = BitwiseAnd( tmp, hexConst )
+ return 128+(256*( 1.0 - tmp / 1073741824.0))
+End Function
+
+Sub Render(g As Graphics)
+ Dim xp, yp As Integer
+ Dim xdelta, ydelta As Integer
+ Dim r, theta As Double
+ Dim new_r_double, new_theta_double As Double
+ Dim new_r_int, new_theta_int As Integer
+ Dim rand As Random
+ Dim scale, sum As Integer
+ Dim t1, t2, t3, t4, i1, i2 As Integer
+ Dim fraction_r, fraction_theta As Double
+ Dim sf, sf8 As Double
+
+ Const SCALE_MAX = 8
+
+ Dim xMax, yMax, hWidth, hHeight As Integer
+ yMax = g.Height - 1
+ xMax = g.Width  - 1
+ hWidth = g.Width/2
+ hHeight = g.Height/2
+
+ Dim cent_to_corner As Integer
+ cent_to_corner = Sqrt((hHeight^2)+(hWidth^2))
+
+ Dim tanscale As Double
+ tanscale = 3.14159265359/(2*cent_to_corner)
+
+ Dim thetascale As Double
+ thetascale = 128/3.14159265359
+
+ rand = New Random
+
+ For yp=0 To yMax //Step 2
+   ydelta = yp-hHeight
+   For xp=0 to xMax //Step 2
+     xdelta = xp-hWidth
+     r = Sqrt((xdelta^2)+(ydelta^2))
+     theta = 128+thetascale*ATan2(ydelta, xdelta) // Puts it into range 0-255
+     r = cent_to_corner - r
+     r = tan(tanscale*r)
+     sum = 0
+     For scale = 1 to SCALE_MAX
+       sf = (2^scale)
+       sf8 = sf*4
+
+       // The constants 64 and 4 are essentially arbitary:
+       // they define the scale of the largest component of the Perlin noise
+       new_theta_double = sf*theta/64 // To range 0 to sf*4 exclusive
+       new_r_double = sf*r/4 // Add current time to this to get an animated effect (but optimise code first!)
+
+       new_theta_int = Floor(new_theta_double)
+       new_r_int = Floor(new_r_double)
+       fraction_r = new_r_double - new_r_int
+       fraction_theta = new_theta_double - new_theta_int
+
+       t1 = seeded_random( new_theta_int    + sf8*new_r_int)
+       t2 = seeded_random( new_theta_int    + sf8*(new_r_int+1))
+       If (new_theta_int+1>=sf8) Then
+         new_theta_int = new_theta_int - sf8
+       End If
+       t3 = seeded_random((new_theta_int+1) + sf8*new_r_int)
+       t4 = seeded_random((new_theta_int+1) + sf8*(new_r_int+1))
+       i1 = Cosine_Interpolate(t1, t2, fraction_r)
+       i2 = Cosine_Interpolate(t3, t4, fraction_r)
+
+       sum = sum + Cosine_Interpolate(i1, i2, fraction_theta)*256.0/sf
+     Next
+     sum = sum/256
+     g.Pixel(xp,   yp) = RGB(sum, sum, sum)
+   Next
+ Next
+End Sub
