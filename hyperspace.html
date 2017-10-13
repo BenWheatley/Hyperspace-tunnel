@@ -16,12 +16,36 @@
 <script>
 	"use strict";
 	
+	// Copied from https://stackoverflow.com/a/5448635/3632488
+	
+	function getSearchParameters() {
+		var prmstr = window.location.search.substr(1);
+		return prmstr != null && prmstr != "" ? transformToAssocArray(prmstr) : {};
+	}
+	
+	function transformToAssocArray( prmstr ) {
+		var params = {};
+		var prmarr = prmstr.split("&");
+		for ( var i = 0; i < prmarr.length; i++) {
+			var tmparr = prmarr[i].split("=");
+			params[tmparr[0]] = tmparr[1];
+		}
+		return params;
+	}
+	
+	var params = getSearchParameters();
+	
+	// End block copied from StackOverflow
+	
 	// Configure the view
 	var CANVAS_WIDTH = window.innerWidth;
 	var CANVAS_HEIGHT = window.innerHeight;
 	
-	CANVAS_WIDTH = 160;
-	CANVAS_HEIGHT = 120;
+	var animated = "animated" in params;
+	if (animated) {
+		CANVAS_WIDTH = 160;
+		CANVAS_HEIGHT = 120;
+	}
 	
 	if (CANVAS_HEIGHT % 2 == 0) {
 		CANVAS_HEIGHT = CANVAS_HEIGHT - 1; // Because there is an error at the 9 O'clock position if we don't do this. I'd fix this rather than leaving a note if I didn't have many dozens of higher priority tasks in my life right now.
@@ -113,8 +137,10 @@
 			}
 		}
 		context.stroke();
-	
-		window.setTimeout(animate, 1000/60);
+		
+		if (animated) {
+			window.setTimeout(animate, 1000/60);
+		}
 		document.getElementById("PleaseWait").innerHTML = "";
 	}
 	
