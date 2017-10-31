@@ -72,7 +72,7 @@
 	
 	function seededRandom(x) {
 		// Magic numbers from tutorial on pseudo-random number generators
-		var temp = x<<13;
+		var temp = (x<<13) ^ x; // bitwise xor
 		temp = (x * (x * x * 15731 + 789221) + 1376312589);
 		temp = temp & 0x7fffffff; // bitwise and
 		return 128 + (256*( 1.0 - temp/1073741824.0 ));
