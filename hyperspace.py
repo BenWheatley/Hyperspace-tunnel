@@ -7,6 +7,8 @@ import math
 from matplotlib import animation
 import argparse
 
+# All the argument parsing
+
 parser = argparse.ArgumentParser()
 parser.add_argument("--width", help="(int) width of output", type=int, default=160)
 parser.add_argument("--height", help="(int) height of output, will be increased by one if even due to rendering bug", type=int, default=120)
@@ -28,13 +30,17 @@ if height % 2 == 0:
 
 print("Actual dimensions:", width, height)
 
+# Pre-calculated constants to speed things up and make code more readable
+
 hWidth, hHeight = width/2.0, height/2.0
 
 centerToCorner = math.sqrt((hWidth*hWidth) + (hHeight*hHeight))
 tangentScale = math.pi / (2*centerToCorner)
 thetaToPerlinScale = 128 / math.pi
 
-MAX_OCTAVE = args.max_octave # Higher values = 8 more detail, lower values = faster; no point going over 8 because of dynamic range of colour space
+# Quality setting
+# MAX_OCTAVE should be in range 1-8: Higher values = more detail, lower values = faster; no point going over 8 because of dynamic range of colour space
+MAX_OCTAVE = args.max_octave
 
 # Utility functions, will only use one of {linearInterpolate, cosineInterpolate}, the former is faster, the latter is nicer
 
@@ -50,6 +56,8 @@ def cosineInterpolate(a, b, x):
 interpolate = cosineInterpolate
 if args.linear_interpolate:
 	interpolate = linearInterpolate
+
+# Random number sources (two options)
 
 def seededRandom(x):
 	# Magic numbers from tutorial on pseudo-random number generators
@@ -71,6 +79,7 @@ noiseFunction = seededRandom
 if args.pregenerate_noise:
 	noiseFunction = pregeneratedRandom
 
+# Three-function Perlin noise function; the time parameter affects each octave differently because that looks more interesting when animated
 def perlinNoise(perlinTheta, r, time):
 	sum = 0
 	for octave in range(1, MAX_OCTAVE):
@@ -102,6 +111,7 @@ def perlinNoise(perlinTheta, r, time):
 		sum += interpolate(i1, i2, fraction_theta)*256/sf
 	return sum/256.0
 
+# Render function
 def render(time):
 	outputImage = np.empty((height, width), np.uint8)
 	for y in range(0, height):
@@ -120,6 +130,7 @@ def render(time):
 	
 	return outputImage
 
+# Renders all images and displays them
 images = []
 for time in range(0, args.frame_count):
 	img = render(time*args.frame_z_interval)
@@ -141,6 +152,7 @@ ani = animation.FuncAnimation(fig, update, interval=args.frame_time_interval, bl
 plt.axis('off')
 plt.show()
 
+# Tries to save the hyperspace tunnel as a movie, but I can't test this because I can't get the required parts to install correctly
 if args.out != None:
 	# Requires ffmpeg (or mencoder?)
 	print("Saving as:", args.out)
