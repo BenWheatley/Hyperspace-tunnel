@@ -1,0 +1,826 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B50631A51FAFB0CC00D891C8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50631A41FAFB0CC00D891C8 /* AppDelegate.swift */; };
+		B50631A71FAFB0CC00D891C8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50631A61FAFB0CC00D891C8 /* ViewController.swift */; };
+		B50631AA1FAFB0CC00D891C8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B50631A81FAFB0CC00D891C8 /* Main.storyboard */; };
+		B50631AC1FAFB0CC00D891C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B50631AB1FAFB0CC00D891C8 /* Assets.xcassets */; };
+		B50631AF1FAFB0CC00D891C8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B50631AD1FAFB0CC00D891C8 /* LaunchScreen.storyboard */; };
+		B50631BA1FAFB0CD00D891C8 /* HyperspaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50631B91FAFB0CD00D891C8 /* HyperspaceTests.swift */; };
+		B50631C51FAFB0CD00D891C8 /* HyperspaceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50631C41FAFB0CD00D891C8 /* HyperspaceUITests.swift */; };
+		B50631CA1FAFB0CD00D891C8 /* Hyperspace WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = B50631C91FAFB0CD00D891C8 /* Hyperspace WatchKit App.app */; };
+		B50631D01FAFB0CD00D891C8 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B50631CE1FAFB0CD00D891C8 /* Interface.storyboard */; };
+		B50631D21FAFB0CD00D891C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B50631D11FAFB0CD00D891C8 /* Assets.xcassets */; };
+		B50631D91FAFB0CD00D891C8 /* Hyperspace WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = B50631D81FAFB0CD00D891C8 /* Hyperspace WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B50631DE1FAFB0CD00D891C8 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50631DD1FAFB0CD00D891C8 /* InterfaceController.swift */; };
+		B50631E01FAFB0CD00D891C8 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50631DF1FAFB0CD00D891C8 /* ExtensionDelegate.swift */; };
+		B50631E21FAFB0CD00D891C8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B50631E11FAFB0CD00D891C8 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B50631B61FAFB0CD00D891C8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B50631991FAFB0CC00D891C8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B50631A01FAFB0CC00D891C8;
+			remoteInfo = Hyperspace;
+		};
+		B50631C11FAFB0CD00D891C8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B50631991FAFB0CC00D891C8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B50631A01FAFB0CC00D891C8;
+			remoteInfo = Hyperspace;
+		};
+		B50631CB1FAFB0CD00D891C8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B50631991FAFB0CC00D891C8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B50631C81FAFB0CD00D891C8;
+			remoteInfo = "Hyperspace WatchKit App";
+		};
+		B50631DA1FAFB0CD00D891C8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B50631991FAFB0CC00D891C8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B50631D71FAFB0CD00D891C8;
+			remoteInfo = "Hyperspace WatchKit Extension";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B50631E91FAFB0CD00D891C8 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				B50631D91FAFB0CD00D891C8 /* Hyperspace WatchKit Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B50631ED1FAFB0CD00D891C8 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				B50631CA1FAFB0CD00D891C8 /* Hyperspace WatchKit App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		B50631A11FAFB0CC00D891C8 /* Hyperspace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hyperspace.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B50631A41FAFB0CC00D891C8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B50631A61FAFB0CC00D891C8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B50631A91FAFB0CC00D891C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B50631AB1FAFB0CC00D891C8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B50631AE1FAFB0CC00D891C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		B50631B01FAFB0CC00D891C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B50631B51FAFB0CD00D891C8 /* HyperspaceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HyperspaceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B50631B91FAFB0CD00D891C8 /* HyperspaceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperspaceTests.swift; sourceTree = "<group>"; };
+		B50631BB1FAFB0CD00D891C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B50631C01FAFB0CD00D891C8 /* HyperspaceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HyperspaceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B50631C41FAFB0CD00D891C8 /* HyperspaceUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperspaceUITests.swift; sourceTree = "<group>"; };
+		B50631C61FAFB0CD00D891C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B50631C91FAFB0CD00D891C8 /* Hyperspace WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hyperspace WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B50631CF1FAFB0CD00D891C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		B50631D11FAFB0CD00D891C8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B50631D31FAFB0CD00D891C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B50631D81FAFB0CD00D891C8 /* Hyperspace WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Hyperspace WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B50631DD1FAFB0CD00D891C8 /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
+		B50631DF1FAFB0CD00D891C8 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
+		B50631E11FAFB0CD00D891C8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B50631E31FAFB0CD00D891C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B506319E1FAFB0CC00D891C8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B50631B21FAFB0CD00D891C8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B50631BD1FAFB0CD00D891C8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B50631D51FAFB0CD00D891C8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B50631981FAFB0CC00D891C8 = {
+			isa = PBXGroup;
+			children = (
+				B50631A31FAFB0CC00D891C8 /* Hyperspace */,
+				B50631B81FAFB0CD00D891C8 /* HyperspaceTests */,
+				B50631C31FAFB0CD00D891C8 /* HyperspaceUITests */,
+				B50631CD1FAFB0CD00D891C8 /* Hyperspace WatchKit App */,
+				B50631DC1FAFB0CD00D891C8 /* Hyperspace WatchKit Extension */,
+				B50631A21FAFB0CC00D891C8 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B50631A21FAFB0CC00D891C8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B50631A11FAFB0CC00D891C8 /* Hyperspace.app */,
+				B50631B51FAFB0CD00D891C8 /* HyperspaceTests.xctest */,
+				B50631C01FAFB0CD00D891C8 /* HyperspaceUITests.xctest */,
+				B50631C91FAFB0CD00D891C8 /* Hyperspace WatchKit App.app */,
+				B50631D81FAFB0CD00D891C8 /* Hyperspace WatchKit Extension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B50631A31FAFB0CC00D891C8 /* Hyperspace */ = {
+			isa = PBXGroup;
+			children = (
+				B50631A41FAFB0CC00D891C8 /* AppDelegate.swift */,
+				B50631A61FAFB0CC00D891C8 /* ViewController.swift */,
+				B50631A81FAFB0CC00D891C8 /* Main.storyboard */,
+				B50631AB1FAFB0CC00D891C8 /* Assets.xcassets */,
+				B50631AD1FAFB0CC00D891C8 /* LaunchScreen.storyboard */,
+				B50631B01FAFB0CC00D891C8 /* Info.plist */,
+			);
+			path = Hyperspace;
+			sourceTree = "<group>";
+		};
+		B50631B81FAFB0CD00D891C8 /* HyperspaceTests */ = {
+			isa = PBXGroup;
+			children = (
+				B50631B91FAFB0CD00D891C8 /* HyperspaceTests.swift */,
+				B50631BB1FAFB0CD00D891C8 /* Info.plist */,
+			);
+			path = HyperspaceTests;
+			sourceTree = "<group>";
+		};
+		B50631C31FAFB0CD00D891C8 /* HyperspaceUITests */ = {
+			isa = PBXGroup;
+			children = (
+				B50631C41FAFB0CD00D891C8 /* HyperspaceUITests.swift */,
+				B50631C61FAFB0CD00D891C8 /* Info.plist */,
+			);
+			path = HyperspaceUITests;
+			sourceTree = "<group>";
+		};
+		B50631CD1FAFB0CD00D891C8 /* Hyperspace WatchKit App */ = {
+			isa = PBXGroup;
+			children = (
+				B50631CE1FAFB0CD00D891C8 /* Interface.storyboard */,
+				B50631D11FAFB0CD00D891C8 /* Assets.xcassets */,
+				B50631D31FAFB0CD00D891C8 /* Info.plist */,
+			);
+			path = "Hyperspace WatchKit App";
+			sourceTree = "<group>";
+		};
+		B50631DC1FAFB0CD00D891C8 /* Hyperspace WatchKit Extension */ = {
+			isa = PBXGroup;
+			children = (
+				B50631DD1FAFB0CD00D891C8 /* InterfaceController.swift */,
+				B50631DF1FAFB0CD00D891C8 /* ExtensionDelegate.swift */,
+				B50631E11FAFB0CD00D891C8 /* Assets.xcassets */,
+				B50631E31FAFB0CD00D891C8 /* Info.plist */,
+			);
+			path = "Hyperspace WatchKit Extension";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B50631A01FAFB0CC00D891C8 /* Hyperspace */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B50631EE1FAFB0CD00D891C8 /* Build configuration list for PBXNativeTarget "Hyperspace" */;
+			buildPhases = (
+				B506319D1FAFB0CC00D891C8 /* Sources */,
+				B506319E1FAFB0CC00D891C8 /* Frameworks */,
+				B506319F1FAFB0CC00D891C8 /* Resources */,
+				B50631ED1FAFB0CD00D891C8 /* Embed Watch Content */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B50631CC1FAFB0CD00D891C8 /* PBXTargetDependency */,
+			);
+			name = Hyperspace;
+			productName = Hyperspace;
+			productReference = B50631A11FAFB0CC00D891C8 /* Hyperspace.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B50631B41FAFB0CD00D891C8 /* HyperspaceTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B50631F11FAFB0CD00D891C8 /* Build configuration list for PBXNativeTarget "HyperspaceTests" */;
+			buildPhases = (
+				B50631B11FAFB0CD00D891C8 /* Sources */,
+				B50631B21FAFB0CD00D891C8 /* Frameworks */,
+				B50631B31FAFB0CD00D891C8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B50631B71FAFB0CD00D891C8 /* PBXTargetDependency */,
+			);
+			name = HyperspaceTests;
+			productName = HyperspaceTests;
+			productReference = B50631B51FAFB0CD00D891C8 /* HyperspaceTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		B50631BF1FAFB0CD00D891C8 /* HyperspaceUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B50631F41FAFB0CD00D891C8 /* Build configuration list for PBXNativeTarget "HyperspaceUITests" */;
+			buildPhases = (
+				B50631BC1FAFB0CD00D891C8 /* Sources */,
+				B50631BD1FAFB0CD00D891C8 /* Frameworks */,
+				B50631BE1FAFB0CD00D891C8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B50631C21FAFB0CD00D891C8 /* PBXTargetDependency */,
+			);
+			name = HyperspaceUITests;
+			productName = HyperspaceUITests;
+			productReference = B50631C01FAFB0CD00D891C8 /* HyperspaceUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		B50631C81FAFB0CD00D891C8 /* Hyperspace WatchKit App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B50631EA1FAFB0CD00D891C8 /* Build configuration list for PBXNativeTarget "Hyperspace WatchKit App" */;
+			buildPhases = (
+				B50631C71FAFB0CD00D891C8 /* Resources */,
+				B50631E91FAFB0CD00D891C8 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B50631DB1FAFB0CD00D891C8 /* PBXTargetDependency */,
+			);
+			name = "Hyperspace WatchKit App";
+			productName = "Hyperspace WatchKit App";
+			productReference = B50631C91FAFB0CD00D891C8 /* Hyperspace WatchKit App.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		B50631D71FAFB0CD00D891C8 /* Hyperspace WatchKit Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B50631E61FAFB0CD00D891C8 /* Build configuration list for PBXNativeTarget "Hyperspace WatchKit Extension" */;
+			buildPhases = (
+				B50631D41FAFB0CD00D891C8 /* Sources */,
+				B50631D51FAFB0CD00D891C8 /* Frameworks */,
+				B50631D61FAFB0CD00D891C8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Hyperspace WatchKit Extension";
+			productName = "Hyperspace WatchKit Extension";
+			productReference = B50631D81FAFB0CD00D891C8 /* Hyperspace WatchKit Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B50631991FAFB0CC00D891C8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0900;
+				LastUpgradeCheck = 0900;
+				ORGANIZATIONNAME = "Ben Wheatley";
+				TargetAttributes = {
+					B50631A01FAFB0CC00D891C8 = {
+						CreatedOnToolsVersion = 9.0.1;
+						ProvisioningStyle = Manual;
+					};
+					B50631B41FAFB0CD00D891C8 = {
+						CreatedOnToolsVersion = 9.0.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = B50631A01FAFB0CC00D891C8;
+					};
+					B50631BF1FAFB0CD00D891C8 = {
+						CreatedOnToolsVersion = 9.0.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = B50631A01FAFB0CC00D891C8;
+					};
+					B50631C81FAFB0CD00D891C8 = {
+						CreatedOnToolsVersion = 9.0.1;
+						ProvisioningStyle = Automatic;
+					};
+					B50631D71FAFB0CD00D891C8 = {
+						CreatedOnToolsVersion = 9.0.1;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = B506319C1FAFB0CC00D891C8 /* Build configuration list for PBXProject "Hyperspace" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B50631981FAFB0CC00D891C8;
+			productRefGroup = B50631A21FAFB0CC00D891C8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B50631A01FAFB0CC00D891C8 /* Hyperspace */,
+				B50631B41FAFB0CD00D891C8 /* HyperspaceTests */,
+				B50631BF1FAFB0CD00D891C8 /* HyperspaceUITests */,
+				B50631C81FAFB0CD00D891C8 /* Hyperspace WatchKit App */,
+				B50631D71FAFB0CD00D891C8 /* Hyperspace WatchKit Extension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B506319F1FAFB0CC00D891C8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B50631AF1FAFB0CC00D891C8 /* LaunchScreen.storyboard in Resources */,
+				B50631AC1FAFB0CC00D891C8 /* Assets.xcassets in Resources */,
+				B50631AA1FAFB0CC00D891C8 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B50631B31FAFB0CD00D891C8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B50631BE1FAFB0CD00D891C8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B50631C71FAFB0CD00D891C8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B50631D21FAFB0CD00D891C8 /* Assets.xcassets in Resources */,
+				B50631D01FAFB0CD00D891C8 /* Interface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B50631D61FAFB0CD00D891C8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B50631E21FAFB0CD00D891C8 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B506319D1FAFB0CC00D891C8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B50631A71FAFB0CC00D891C8 /* ViewController.swift in Sources */,
+				B50631A51FAFB0CC00D891C8 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B50631B11FAFB0CD00D891C8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B50631BA1FAFB0CD00D891C8 /* HyperspaceTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B50631BC1FAFB0CD00D891C8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B50631C51FAFB0CD00D891C8 /* HyperspaceUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B50631D41FAFB0CD00D891C8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B50631E01FAFB0CD00D891C8 /* ExtensionDelegate.swift in Sources */,
+				B50631DE1FAFB0CD00D891C8 /* InterfaceController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B50631B71FAFB0CD00D891C8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B50631A01FAFB0CC00D891C8 /* Hyperspace */;
+			targetProxy = B50631B61FAFB0CD00D891C8 /* PBXContainerItemProxy */;
+		};
+		B50631C21FAFB0CD00D891C8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B50631A01FAFB0CC00D891C8 /* Hyperspace */;
+			targetProxy = B50631C11FAFB0CD00D891C8 /* PBXContainerItemProxy */;
+		};
+		B50631CC1FAFB0CD00D891C8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B50631C81FAFB0CD00D891C8 /* Hyperspace WatchKit App */;
+			targetProxy = B50631CB1FAFB0CD00D891C8 /* PBXContainerItemProxy */;
+		};
+		B50631DB1FAFB0CD00D891C8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B50631D71FAFB0CD00D891C8 /* Hyperspace WatchKit Extension */;
+			targetProxy = B50631DA1FAFB0CD00D891C8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		B50631A81FAFB0CC00D891C8 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B50631A91FAFB0CC00D891C8 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		B50631AD1FAFB0CC00D891C8 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B50631AE1FAFB0CC00D891C8 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		B50631CE1FAFB0CD00D891C8 /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B50631CF1FAFB0CD00D891C8 /* Base */,
+			);
+			name = Interface.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B50631E41FAFB0CD00D891C8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		B50631E51FAFB0CD00D891C8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B50631E71FAFB0CD00D891C8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "Hyperspace WatchKit Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kitsunesoftware.Hyperspace.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
+			};
+			name = Debug;
+		};
+		B50631E81FAFB0CD00D891C8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "Hyperspace WatchKit Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kitsunesoftware.Hyperspace.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
+			};
+			name = Release;
+		};
+		B50631EB1FAFB0CD00D891C8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				IBSC_MODULE = Hyperspace_WatchKit_Extension;
+				INFOPLIST_FILE = "Hyperspace WatchKit App/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kitsunesoftware.Hyperspace.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
+			};
+			name = Debug;
+		};
+		B50631EC1FAFB0CD00D891C8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				IBSC_MODULE = Hyperspace_WatchKit_Extension;
+				INFOPLIST_FILE = "Hyperspace WatchKit App/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kitsunesoftware.Hyperspace.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
+			};
+			name = Release;
+		};
+		B50631EF1FAFB0CD00D891C8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = Hyperspace/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kitsunesoftware.Hyperspace;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B50631F01FAFB0CD00D891C8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = Hyperspace/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kitsunesoftware.Hyperspace;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		B50631F21FAFB0CD00D891C8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = HyperspaceTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kitsunesoftware.HyperspaceTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hyperspace.app/Hyperspace";
+			};
+			name = Debug;
+		};
+		B50631F31FAFB0CD00D891C8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = HyperspaceTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kitsunesoftware.HyperspaceTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hyperspace.app/Hyperspace";
+			};
+			name = Release;
+		};
+		B50631F51FAFB0CD00D891C8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = HyperspaceUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kitsunesoftware.HyperspaceUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Hyperspace;
+			};
+			name = Debug;
+		};
+		B50631F61FAFB0CD00D891C8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = HyperspaceUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kitsunesoftware.HyperspaceUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Hyperspace;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B506319C1FAFB0CC00D891C8 /* Build configuration list for PBXProject "Hyperspace" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B50631E41FAFB0CD00D891C8 /* Debug */,
+				B50631E51FAFB0CD00D891C8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B50631E61FAFB0CD00D891C8 /* Build configuration list for PBXNativeTarget "Hyperspace WatchKit Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B50631E71FAFB0CD00D891C8 /* Debug */,
+				B50631E81FAFB0CD00D891C8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B50631EA1FAFB0CD00D891C8 /* Build configuration list for PBXNativeTarget "Hyperspace WatchKit App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B50631EB1FAFB0CD00D891C8 /* Debug */,
+				B50631EC1FAFB0CD00D891C8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B50631EE1FAFB0CD00D891C8 /* Build configuration list for PBXNativeTarget "Hyperspace" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B50631EF1FAFB0CD00D891C8 /* Debug */,
+				B50631F01FAFB0CD00D891C8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B50631F11FAFB0CD00D891C8 /* Build configuration list for PBXNativeTarget "HyperspaceTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B50631F21FAFB0CD00D891C8 /* Debug */,
+				B50631F31FAFB0CD00D891C8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B50631F41FAFB0CD00D891C8 /* Build configuration list for PBXNativeTarget "HyperspaceUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B50631F51FAFB0CD00D891C8 /* Debug */,
+				B50631F61FAFB0CD00D891C8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B50631991FAFB0CC00D891C8 /* Project object */;
+}
