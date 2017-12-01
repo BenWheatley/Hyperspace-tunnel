@@ -108,8 +108,8 @@ def perlinNoise(perlinTheta, r, time):
 		i1 = interpolate(t1, t2, fraction_r)
 		i2 = interpolate(t3, t4, fraction_r)
 		
-		sum += interpolate(i1, i2, fraction_theta)*256/sf
-	return sum/256.0
+		sum += interpolate(i1, i2, fraction_theta)/sf
+	return sum
 
 # Render function
 def render(time):
