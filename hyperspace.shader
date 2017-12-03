@@ -1,6 +1,6 @@
 /*
- * "Hyperspac" by Ben Wheatley - 2014
- * License ??? plus Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+ * "Hyperspace" by Ben Wheatley - 2017
+ * License MIT License
  * Contact: github.com/BenWheatley
  */
 
@@ -26,14 +26,14 @@ float seededRandom(float seed) {
     return float(x)/1073741824.0;
 }
 
+// The magic constants are essentially arbitary:
+// they define the scale of the largest component of the Perlin noise
 float perlinNoise(float perlinTheta, float r, float time) {
     float sum = 0.0;
     for (int octave=0; octave<MAX_OCTAVE; ++octave) {
         float sf = pow(2.0, float(octave));
         float sf8 = sf*64.0; // I can't remember where this variable name came from
         
-        // The constants 64 and 4 are essentially arbitary:
-		// they define the scale of the largest component of the Perlin noise
 		float new_theta = sf*perlinTheta;
         float new_r = sf*r/4.0 + time; // Add current time to this to get an animated effect
 		
@@ -76,8 +76,10 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
     r = tan(tangentScale*r);
     
     float c = perlinNoise(perlinTheta, r, iTime)/8.0;
+    // Fiddle with brightness and contrast to push it into a nice range
     c -= 0.3;
     c *= 2.0;
     
+    // Just red because I'm bored of the grey version
     fragColor = vec4(c, 0, 0, 0);
 }
