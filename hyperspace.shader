@@ -71,6 +71,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
     dy *= iResolution.y / iResolution.x;
     
     float perlinTheta = (PI+atan(dy, -dx))/PI;
+    perlinTheta -= 0.01; // Removes a strange artefact at 9 O'Clock that only appears at certain resolutions.
     float r = sqrt((dx*dx) + (dy*dy));
     r = centerToCorner - r;
     r = tan(tangentScale*r);
