@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Hyperspace Background - Game Engine Demo</title>
+<style>
+	body {
+		margin: 0;
+		padding: 0;
+		overflow: hidden;
+		background: #000;
+	}
+	canvas {
+		display: block;
+	}
+</style>
+</head>
+<body>
+
+<canvas id="gameCanvas"></canvas>
+
+<script src="UpgradeBackground.js"></script>
+<script>
+	"use strict";
+
+	// Simple game engine simulation
+	const canvas = document.getElementById('gameCanvas');
+	const ctx = canvas.getContext('2d');
+
+	// Set canvas size
+	canvas.width = window.innerWidth;
+	canvas.height = window.innerHeight;
+
+	// Create background instance
+	const background = new UpgradeBackground();
+
+	// Game loop variables
+	let lastTime = performance.now();
+
+	// Color settings - you can change these to tint the background
+	// Try different colors:
+	//   White: (255, 255, 255)
+	//   Blue: (100, 150, 255)
+	//   Green: (100, 255, 150)
+	//   Purple: (200, 100, 255)
+	let colorR = 255;
+	let colorG = 255;
+	let colorB = 255;
+	let colorA = 255;
+
+	function gameLoop(currentTime) {
+		// Calculate delta time in seconds
+		const deltaTime = (currentTime - lastTime) / 1000;
+		lastTime = currentTime;
+
+		// Update background animation
+		background.update(deltaTime);
+
+		// Draw background
+		background.draw(ctx, canvas.width, canvas.height, colorR, colorG, colorB, colorA);
+
+		// Continue game loop
+		requestAnimationFrame(gameLoop);
+	}
+
+	// Start the game loop
+	requestAnimationFrame(gameLoop);
+
+	// Handle window resize
+	window.addEventListener('resize', () => {
+		canvas.width = window.innerWidth;
+		canvas.height = window.innerHeight;
+	});
+
+	// Example: Change color on key press
+	window.addEventListener('keydown', (e) => {
+		switch(e.key) {
+			case '1': // White
+				colorR = 255; colorG = 255; colorB = 255;
+				break;
+			case '2': // Blue
+				colorR = 100; colorG = 150; colorB = 255;
+				break;
+			case '3': // Green
+				colorR = 100; colorG = 255; colorB = 150;
+				break;
+			case '4': // Purple
+				colorR = 200; colorG = 100; colorB = 255;
+				break;
+			case '5': // Red
+				colorR = 255; colorG = 100; colorB = 100;
+				break;
+		}
+	});
+</script>
+
+</body>
+</html>
