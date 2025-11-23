@@ -96,7 +96,8 @@ function render(t) {
 
         for (let octave = 1; octave < MAX_OCTAVE; octave++) {
             const sf = 1 << octave;
-            const w = sf * 4;
+            const w  = sf * 4;        // angular wrap width
+            const h  = MAX_TABLE;     // radial size (oversized on purpose)
 
             const t0 = sf * theta / 64;
             const r0 = sf * r / 4 + time;
@@ -104,15 +105,23 @@ function render(t) {
             let ti = t0 | 0;
             let ri = r0 | 0;
 
-            let ft = t0 - ti;
-            let fr = r0 - ri;
+            const ft = t0 - ti;
+            const fr = r0 - ri;
 
-            if (ti + 1 >= w) ti -= w;
+            // Correct angular wrap-around (cylindrical topology)
+            ti = ((ti % w) + w) % w;
+            const ti1 = (ti + 1) % w;
 
-            const i00 = noiseTable[ti + w * ri];
-            const i01 = noiseTable[ti + w * (ri + 1)];
-            const i10 = noiseTable[(ti + 1) + w * ri];
-            const i11 = noiseTable[(ti + 1) + w * (ri + 1)];
+            // Precompute indices into the 2D noise table
+            const idx00 = ti  + h * ri;
+            const idx01 = ti  + h * (ri + 1);
+            const idx10 = ti1 + h * ri;
+            const idx11 = ti1 + h * (ri + 1);
+
+            const i00 = noiseTable[idx00];
+            const i01 = noiseTable[idx01];
+            const i10 = noiseTable[idx10];
+            const i11 = noiseTable[idx11];
 
             const a = cosInterp(i00, i01, fr);
             const b = cosInterp(i10, i11, fr);
