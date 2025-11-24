@@ -23,13 +23,29 @@
 <script>
 	"use strict";
 
+	// Parse URL parameters
+	const params = Object.fromEntries(
+		new URLSearchParams(window.location.search)
+	);
+
 	// Simple game engine simulation
 	const canvas = document.getElementById('gameCanvas');
 	const ctx = canvas.getContext('2d');
 
-	// Set canvas size
-	canvas.width = window.innerWidth;
-	canvas.height = window.innerHeight;
+	// Set canvas size (smaller if animated parameter present)
+	let canvasWidth = window.innerWidth;
+	let canvasHeight = window.innerHeight;
+
+	const animated = "animated" in params;
+	if (animated) {
+		canvasWidth = 160;
+		canvasHeight = 120;
+	}
+
+	if (canvasHeight % 2 === 0) canvasHeight--;
+
+	canvas.width = canvasWidth;
+	canvas.height = canvasHeight;
 
 	// Create background instance
 	const background = new UpgradeBackground();
@@ -66,11 +82,13 @@
 	// Start the game loop
 	requestAnimationFrame(gameLoop);
 
-	// Handle window resize
-	window.addEventListener('resize', () => {
-		canvas.width = window.innerWidth;
-		canvas.height = window.innerHeight;
-	});
+	// Handle window resize (only if not in animated mode)
+	if (!animated) {
+		window.addEventListener('resize', () => {
+			canvas.width = window.innerWidth;
+			canvas.height = window.innerHeight;
+		});
+	}
 
 	// Example: Change color on key press
 	window.addEventListener('keydown', (e) => {
