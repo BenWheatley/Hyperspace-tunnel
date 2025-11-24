@@ -1,0 +1,152 @@
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<body style="margin:0;">
+
+<div id="SpaceView">
+    <p id="PleaseWait">Rendering, please wait…</p>
+    <canvas id="canvas-SpaceView"></canvas>
+</div>
+
+<script>
+"use strict";
+
+const params = Object.fromEntries(
+    new URLSearchParams(window.location.search)
+);
+
+let CANVAS_WIDTH = window.innerWidth;
+let CANVAS_HEIGHT = window.innerHeight;
+
+const animated = "animated" in params;
+if (animated) {
+    CANVAS_WIDTH = 160;
+    CANVAS_HEIGHT = 120;
+}
+
+if (CANVAS_HEIGHT % 2 === 0) CANVAS_HEIGHT--;
+
+const canvas = document.getElementById("canvas-SpaceView");
+canvas.width = CANVAS_WIDTH;
+canvas.height = CANVAS_HEIGHT;
+const ctx = canvas.getContext("2d");
+
+const hWidth = CANVAS_WIDTH / 2;
+const hHeight = CANVAS_HEIGHT / 2;
+
+const MAX_OCTAVE = 8;
+const centerToCorner = Math.sqrt(hWidth*hWidth + hHeight*hHeight);
+const tangentScale = Math.PI / (2 * centerToCorner);
+const thetaToPerlinScale = 128 / Math.PI;
+
+/* -------- Precompute pixel geometry -------- */
+
+const pixel_r     = new Float32Array(CANVAS_WIDTH * CANVAS_HEIGHT);
+const pixel_theta = new Float32Array(CANVAS_WIDTH * CANVAS_HEIGHT);
+
+let idx = 0;
+for (let y = 0; y < CANVAS_HEIGHT; y++) {
+    const dy = y - hHeight;
+    for (let x = 0; x < CANVAS_WIDTH; x++, idx++) {
+        const dx = x - hWidth;
+        const r = centerToCorner - Math.sqrt(dx*dx + dy*dy);
+        pixel_r[idx] = Math.tan(tangentScale * r);
+        pixel_theta[idx] = 128 + thetaToPerlinScale * Math.atan2(dy, dx);
+    }
+}
+
+/* -------- Precompute seeded random table -------- */
+
+function seededRandom(x) {
+    let t = (x << 13) ^ x;
+    t = (x * (x * x * 15731 + 789221) + 1376312589) & 0x7fffffff;
+    return 128 + 256 * (1 - t / 1073741824.0);
+}
+
+// Maximum table size needed for any octave
+const MAX_TABLE = (1 << (MAX_OCTAVE + 2)); // 4×2^octave
+const noiseTable = new Float32Array(MAX_TABLE * MAX_TABLE);
+
+for (let i = 0; i < noiseTable.length; i++) {
+    noiseTable[i] = seededRandom(i);
+}
+
+/* -------- Interpolation -------- */
+
+function cosInterp(a, b, x) {
+    const f = (1 - Math.cos(x * Math.PI)) * 0.5;
+    return a * (1 - f) + b * f;
+}
+
+/* -------- Renderer -------- */
+
+function render(t) {
+    const time = t / 1000;
+
+    const image = ctx.createImageData(CANVAS_WIDTH, CANVAS_HEIGHT);
+    const data = image.data;
+
+    let index = 0;
+    for (let p = 0; p < pixel_r.length; p++) {
+
+        let r = pixel_r[p];
+        let theta = pixel_theta[p];
+        let sum = 0;
+
+        for (let octave = 1; octave < MAX_OCTAVE; octave++) {
+            const sf = 1 << octave;
+            const w  = sf * 4;        // angular wrap width
+            const h  = MAX_TABLE;     // radial size (oversized on purpose)
+
+            const t0 = sf * theta / 64;
+            const r0 = sf * r / 4 + time;
+
+            let ti = t0 | 0;
+            let ri = r0 | 0;
+
+            const ft = t0 - ti;
+            const fr = r0 - ri;
+
+            // Correct angular wrap-around (cylindrical topology)
+            ti = ((ti % w) + w) % w;
+            const ti1 = (ti + 1) % w;
+
+            // Precompute indices into the 2D noise table
+            const idx00 = ti  + h * ri;
+            const idx01 = ti  + h * (ri + 1);
+            const idx10 = ti1 + h * ri;
+            const idx11 = ti1 + h * (ri + 1);
+
+            const i00 = noiseTable[idx00];
+            const i01 = noiseTable[idx01];
+            const i10 = noiseTable[idx10];
+            const i11 = noiseTable[idx11];
+
+            const a = cosInterp(i00, i01, fr);
+            const b = cosInterp(i10, i11, fr);
+
+            sum += cosInterp(a, b, ft) * (256 / sf);
+        }
+
+        const v = Math.round(sum / 256);
+
+        data[index++] = v;
+        data[index++] = v;
+        data[index++] = v;
+        data[index++] = 255;
+    }
+
+    ctx.putImageData(image, 0, 0);
+
+    document.getElementById("PleaseWait").textContent = "";
+
+    if (animated) requestAnimationFrame(render);
+}
+
+/* -------- Kick off -------- */
+requestAnimationFrame(render);
+
+</script>
+</body>
+</html>

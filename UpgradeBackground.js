@@ -1,18 +1,87 @@
 /**
- * Hyperspace tunnel background effect for game engines
- * Based on Perlin noise in polar coordinates with time animation
+ * Optimized hyperspace tunnel background effect for game engines
+ * Based on Perlin noise in polar coordinates with precomputed lookup tables
  */
 class UpgradeBackground {
 	constructor() {
 		this.time = 0;
-		this.MAX_OCTAVE = 8; // Higher = more detail, lower = faster
+		this.MAX_OCTAVE = 8;
 
-		// Cache these to avoid recalculation
-		this.hWidth = 0;
-		this.hHeight = 0;
-		this.centerToCorner = 0;
-		this.tangentScale = 0;
+		// Cached dimensions
+		this.cachedWidth = 0;
+		this.cachedHeight = 0;
+
+		// Precomputed arrays (allocated on first draw)
+		this.pixel_r = null;
+		this.pixel_theta = null;
+		this.noiseTable = null;
+		this.imageData = null;
+
 		this.thetaToPerlinScale = 128 / Math.PI;
+
+		// Precompute noise lookup table
+		this._initNoiseTable();
+	}
+
+	/**
+	 * Initialize the noise lookup table (only needs to be done once)
+	 * @private
+	 */
+	_initNoiseTable() {
+		const MAX_TABLE = 1 << (this.MAX_OCTAVE + 2); // 4×2^octave
+		this.noiseTable = new Float32Array(MAX_TABLE * MAX_TABLE);
+
+		for (let i = 0; i < this.noiseTable.length; i++) {
+			this.noiseTable[i] = this._seededRandom(i);
+		}
+	}
+
+	/**
+	 * Precompute pixel geometry for the given canvas dimensions
+	 * @private
+	 */
+	_precomputeGeometry(canvasWidth, canvasHeight) {
+		this.cachedWidth = canvasWidth;
+		this.cachedHeight = canvasHeight;
+
+		const hWidth = canvasWidth / 2;
+		const hHeight = canvasHeight / 2;
+		const centerToCorner = Math.sqrt(hWidth * hWidth + hHeight * hHeight);
+		const tangentScale = Math.PI / (2 * centerToCorner);
+
+		const pixelCount = canvasWidth * canvasHeight;
+		this.pixel_r = new Float32Array(pixelCount);
+		this.pixel_theta = new Float32Array(pixelCount);
+
+		let idx = 0;
+		for (let y = 0; y < canvasHeight; y++) {
+			const dy = y - hHeight;
+			for (let x = 0; x < canvasWidth; x++, idx++) {
+				const dx = x - hWidth;
+				const r = centerToCorner - Math.sqrt(dx * dx + dy * dy);
+				this.pixel_r[idx] = Math.tan(tangentScale * r);
+				this.pixel_theta[idx] = 128 + this.thetaToPerlinScale * Math.atan2(dy, dx);
+			}
+		}
+	}
+
+	/**
+	 * Seeded pseudo-random number generator
+	 * @private
+	 */
+	_seededRandom(x) {
+		let t = (x << 13) ^ x;
+		t = (x * (x * x * 15731 + 789221) + 1376312589) & 0x7fffffff;
+		return 128 + 256 * (1 - t / 1073741824.0);
+	}
+
+	/**
+	 * Cosine interpolation for smooth transitions
+	 * @private
+	 */
+	_cosInterp(a, b, x) {
+		const f = (1 - Math.cos(x * Math.PI)) * 0.5;
+		return a * (1 - f) + b * f;
 	}
 
 	/**
@@ -34,102 +103,67 @@ class UpgradeBackground {
 	 * @param {number} a - Alpha component (0-255)
 	 */
 	draw(context, canvasWidth, canvasHeight, r, g, b, a) {
-		// Update cached dimensions if canvas size changed
-		if (this.hWidth !== canvasWidth / 2 || this.hHeight !== canvasHeight / 2) {
-			this.hWidth = canvasWidth / 2;
-			this.hHeight = canvasHeight / 2;
-			this.centerToCorner = Math.sqrt((this.hWidth * this.hWidth) + (this.hHeight * this.hHeight));
-			this.tangentScale = Math.PI / (2 * this.centerToCorner);
+		// Recompute geometry if canvas size changed
+		if (this.cachedWidth !== canvasWidth || this.cachedHeight !== canvasHeight) {
+			this._precomputeGeometry(canvasWidth, canvasHeight);
+			this.imageData = context.createImageData(canvasWidth, canvasHeight);
 		}
 
-		context.beginPath();
+		const data = this.imageData.data;
+		const MAX_TABLE = 1 << (this.MAX_OCTAVE + 2);
 
-		// Render all pixels
-		for (let y = 0; y < canvasHeight; y++) {
-			const dy = y - this.hHeight;
+		let index = 0;
+		for (let p = 0; p < this.pixel_r.length; p++) {
+			const radius = this.pixel_r[p];
+			const theta = this.pixel_theta[p];
+			let sum = 0;
 
-			for (let x = 0; x < canvasWidth; x++) {
-				const dx = x - this.hWidth;
-				let radius = Math.sqrt((dx * dx) + (dy * dy));
-				const perlinTheta = 128 + this.thetaToPerlinScale * Math.atan2(dy, dx); // Range 0-255
+			// Accumulate noise across octaves
+			for (let octave = 1; octave < this.MAX_OCTAVE; octave++) {
+				const sf = 1 << octave; // 2^octave (bitwise shift for speed)
+				const w = sf * 4;       // angular wrap width
+				const h = MAX_TABLE;    // radial size
 
-				// Apply perspective transform
-				radius = this.centerToCorner - radius;
-				radius = Math.tan(this.tangentScale * radius);
+				const t0 = sf * theta / 64;
+				const r0 = sf * radius / 4 + this.time;
 
-				// Generate Perlin noise value
-				let sum = 0;
-				for (let octave = 1; octave < this.MAX_OCTAVE; octave++) {
-					const sf = Math.pow(2, octave);
-					const sf8 = sf * 4;
+				let ti = t0 | 0; // Fast floor for positive numbers
+				let ri = r0 | 0;
 
-					// Scale factors for Perlin noise coordinates
-					const new_theta_double = sf * perlinTheta / 64;
-					const new_r_double = sf * radius / 4 + this.time;
+				const ft = t0 - ti;
+				const fr = r0 - ri;
 
-					let new_theta_int = Math.floor(new_theta_double);
-					const new_r_int = Math.floor(new_r_double);
-					const fraction_r = new_r_double - new_r_int;
-					const fraction_theta = new_theta_double - new_theta_int;
+				// Correct angular wrap-around (cylindrical topology)
+				ti = ((ti % w) + w) % w;
+				const ti1 = (ti + 1) % w;
 
-					// Get random values at grid corners
-					const t1 = this.seededRandom(new_theta_int + sf8 * new_r_int);
-					const t2 = this.seededRandom(new_theta_int + sf8 * (new_r_int + 1));
+				// Precompute indices into the 2D noise table
+				const idx00 = ti + h * ri;
+				const idx01 = ti + h * (ri + 1);
+				const idx10 = ti1 + h * ri;
+				const idx11 = ti1 + h * (ri + 1);
 
-					// Wrap theta to handle 360° boundary
-					if (new_theta_int + 1 >= sf8) {
-						new_theta_int = new_theta_int - sf8;
-					}
+				const i00 = this.noiseTable[idx00];
+				const i01 = this.noiseTable[idx01];
+				const i10 = this.noiseTable[idx10];
+				const i11 = this.noiseTable[idx11];
 
-					const t3 = this.seededRandom((new_theta_int + 1) + sf8 * new_r_int);
-					const t4 = this.seededRandom((new_theta_int + 1) + sf8 * (new_r_int + 1));
+				const i_r0 = this._cosInterp(i00, i01, fr);
+				const i_r1 = this._cosInterp(i10, i11, fr);
 
-					// Bilinear interpolation with cosine smoothing
-					const i1 = this.cosineInterpolate(t1, t2, fraction_r);
-					const i2 = this.cosineInterpolate(t3, t4, fraction_r);
-
-					sum = sum + this.cosineInterpolate(i1, i2, fraction_theta) * 256 / sf;
-				}
-
-				// Convert noise to intensity (0-255)
-				const intensity = Math.round(sum / 256.0);
-
-				// Apply color tint based on r, g, b parameters
-				const finalR = Math.round((intensity / 255) * r);
-				const finalG = Math.round((intensity / 255) * g);
-				const finalB = Math.round((intensity / 255) * b);
-
-				context.fillStyle = `rgba(${finalR}, ${finalG}, ${finalB}, ${a})`;
-				context.fillRect(x, y, 1, 1);
+				sum += this._cosInterp(i_r0, i_r1, ft) * (256 / sf);
 			}
+
+			// Convert noise to intensity (0-255)
+			const intensity = Math.round(sum / 256);
+
+			// Apply color tint based on r, g, b parameters
+			data[index++] = Math.round((intensity / 255) * r);
+			data[index++] = Math.round((intensity / 255) * g);
+			data[index++] = Math.round((intensity / 255) * b);
+			data[index++] = a;
 		}
 
-		context.stroke();
-	}
-
-	/**
-	 * Cosine interpolation for smooth transitions
-	 * @param {number} a - Start value
-	 * @param {number} b - End value
-	 * @param {number} x - Interpolation factor (0-1)
-	 * @returns {number} Interpolated value
-	 */
-	cosineInterpolate(a, b, x) {
-		const ft = x * Math.PI;
-		const f = (1 - Math.cos(ft)) * 0.5;
-		return a * (1 - f) + b * f;
-	}
-
-	/**
-	 * Seeded pseudo-random number generator
-	 * @param {number} x - Seed value
-	 * @returns {number} Pseudo-random value
-	 */
-	seededRandom(x) {
-		// Magic numbers from PRNG tutorial
-		let temp = (x << 13) ^ x; // bitwise xor
-		temp = (x * (x * x * 15731 + 789221) + 1376312589);
-		temp = temp & 0x7fffffff; // bitwise and
-		return 128 + (256 * (1.0 - temp / 1073741824.0));
+		context.putImageData(this.imageData, 0, 0);
 	}
 }
