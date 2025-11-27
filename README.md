@@ -7,4 +7,6 @@ Demonstration, JavaScript, animated (takes a few seconds to stabilise, low resol
 
 Demonstration, JavaScript, high resolution (takes a few seconds to render, not animated): https://benwheatley.github.io/Hyperspace-tunnel/hyperspace.html
 
+Demonstration, JS, asked an LLM to optimise it and package it for use in a game I'm putting together, press 1-5 to choose a different colour scheme: [https://benwheatley.github.io/Hyperspace-tunnel/demo-game-engine.html?animated]
+
 ![Hyperspace tunnel rendered in REALbasic](https://github.com/BenWheatley/Hyperspace-tunnel/blob/master/Tunnel.jpg)
